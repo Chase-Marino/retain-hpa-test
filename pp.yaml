@@ -1,0 +1,15 @@
+apiVersion: policy.karmada.io/v1alpha1
+kind: PropagationPolicy
+metadata:
+  name: test-retain-propagation
+  namespace: retain-test
+spec:
+  resourceSelectors:
+    - apiVersion: apps/v1
+      kind: Deployment
+    - apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+  placement:
+    clusterAffinity:
+      clusterNames:
+        - member1

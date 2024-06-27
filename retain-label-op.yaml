@@ -1,0 +1,20 @@
+apiVersion: policy.karmada.io/v1alpha1
+kind: OverridePolicy
+metadata:
+  namespace: retain-test
+  labels:
+    role: retain-replicas
+  name: retain-replicas
+spec:
+  overrideRules:
+  - overriders:
+      labelsOverrider:
+      - operator: add
+        value:
+          resourcetemplate.karmada.io/retain-replicas: "true"
+    targetCluster:
+      clusterNames:
+      - member1
+  resourceSelectors:
+  - apiVersion: apps/v1
+    kind: Deployment
