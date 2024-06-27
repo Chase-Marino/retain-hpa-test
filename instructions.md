@@ -15,6 +15,7 @@ Target cluster replica count is being continuously updated by karmada by the src
 
 # create deployment, hpa
 ka source apply -f deployment.yaml
+
 ka source apply -f hpa.yaml
 
 # note that this hpa has scaling disabled and minReplicas = maxReplicas. So all this hpa should be doing is changing the replica count to the minReplicas value (2 in this case)
@@ -24,6 +25,7 @@ ka source apply -f pp.yaml
 
 # observe matching state in both clusters
 ka source -n retain-test get deployment
+
 ka member1 -n retain-test get deployment
 
 # apply retain label to target cluster. replica count should still match in both clusters, should be able to observe label applied
@@ -36,6 +38,7 @@ ka source apply -f hpa.yaml
 
 # observe deployment state
 ka source -n retain-test get deployment -w
+
 ka member1 -n retain-test get deployment -w
 
 # we see that replica count is spamming between 2 and 4, when it should be constant at 4 in target cluster
